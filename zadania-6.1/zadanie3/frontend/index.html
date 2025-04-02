@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Frontend</title>
+</head>
+<body>
+  <h1>Frontend</h1>
+  <div id="data">Loading...</div>
+
+  <script>
+    fetch('http://backend:3000/api')
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById('data').innerText = text;
+      })
+      .catch(err => {
+        document.getElementById('data').innerText = 'Error: ' + err;
+      });
+  </script>
+</body>
+</html>
