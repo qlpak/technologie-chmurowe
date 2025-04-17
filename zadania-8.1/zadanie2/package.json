@@ -1,0 +1,13 @@
+{
+  "name": "express-redis-app",
+  "version": "1.0.0",
+  "description": "Express app with Redis",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "redis": "^4.6.7"
+  }
+}
