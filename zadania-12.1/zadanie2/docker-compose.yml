@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  api:
+    platform: linux/arm64
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "4242:3000"
+    depends_on:
+      - mongo
+    restart: always
+
+  mongo:
+    platform: linux/amd64
+    image: mongo:6.0
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27018:27017"

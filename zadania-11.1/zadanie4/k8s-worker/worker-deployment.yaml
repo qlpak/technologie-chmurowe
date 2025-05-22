@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-worker.yml -o k8s-worker/
+    kompose.version: 1.36.0 (HEAD)
+  labels:
+    io.kompose.service: worker
+  name: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: worker
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose-worker.yml -o k8s-worker/
+        kompose.version: 1.36.0 (HEAD)
+      labels:
+        io.kompose.service: worker
+    spec:
+      containers:
+        - args:
+            - sleep
+            - "3600"
+          image: busybox
+          name: worker
+      restartPolicy: Always

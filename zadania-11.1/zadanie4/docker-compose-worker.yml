@@ -1,0 +1,5 @@
+version: '3'
+services:
+  worker:
+    image: busybox
+    command: ["sleep", "3600"]

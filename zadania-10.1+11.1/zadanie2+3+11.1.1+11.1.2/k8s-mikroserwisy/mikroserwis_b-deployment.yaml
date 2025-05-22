@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mikroserwis-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mikroserwis-b
+  template:
+    metadata:
+      labels:
+        app: mikroserwis-b
+    spec:
+      containers:
+        - name: mikroserwis-b
+          image: yourdockerhub/mikroserwis-b:latest
+          ports:
+            - containerPort: 3001
+          env:
+            - name: DATABASE_URL
+              value: "postgres://postgres:password@postgres-service:5432/mydb"
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-host
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "1"

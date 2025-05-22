@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mikroserwis-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mikroserwis-a
+  template:
+    metadata:
+      labels:
+        app: mikroserwis-a
+    spec:
+      containers:
+        - name: mikroserwis-a
+          image: node:18
+          command: ["sh", "-c", "npm install && node index.js"]
+          workingDir: /app
+          volumeMounts:
+            - name: source
+              mountPath: /app
+          ports:
+            - containerPort: 3000
+      volumes:
+        - name: source
+          hostPath:
+            path: /Users/lukaszkulpaczynski/Desktop/IV-semester/technologie-chmurowe/technologie-chmurowe/zadania-10.1/zadanie1/k8s-mikroserwisy/mikroserwis_a
+            type: Directory
