@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-cash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-cash
+  template:
+    metadata:
+      labels:
+        app: consumer-cash
+    spec:
+      containers:
+        - name: consumer-cash
+          image: consumer_cash:latest
+          imagePullPolicy: Never
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbitmq
+
+  producer:
+    build: ./producer
+    ports:
+      - "5003:5000"
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+
+  consumer_mortgage:
+    build: ./consumer_mortgage
+    depends_on:
+      - rabbitmq
+
+  consumer_cash:
+    build: ./consumer_cash
+    depends_on:
+      - rabbitmq
+
+  consumer_business:
+    build: ./consumer_business
+    depends_on:
+      - rabbitmq

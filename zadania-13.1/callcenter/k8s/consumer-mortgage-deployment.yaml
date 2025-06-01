@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-mortgage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-mortgage
+  template:
+    metadata:
+      labels:
+        app: consumer-mortgage
+    spec:
+      containers:
+        - name: consumer-mortgage
+          image: consumer_mortgage:latest
+          imagePullPolicy: Never
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq

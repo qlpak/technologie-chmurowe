@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-business
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-business
+  template:
+    metadata:
+      labels:
+        app: consumer-business
+    spec:
+      containers:
+        - name: consumer-business
+          image: consumer_business:latest
+          imagePullPolicy: Never
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq
